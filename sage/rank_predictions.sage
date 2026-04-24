@@ -99,10 +99,10 @@ def ComputeNullityHybrid(v, o, m, g):
 
 
 def PredictNullityEven(v, o, m):
-    return sum((-1)**j * math.comb(m + j - 1, j) * math.comb(v + o, v + 2*j) for j in range(o//2 + 1))
+    return max(0, sum((-1)**j * math.comb(m + j - 1, j) * math.comb(v + o, v + 2*j) for j in range(o//2 + 1)))
 
 def PredictNullityOdd(v, o, m):
-    return sum((-1)**j * math.comb(m, j) * math.comb(v + o, v + j) * math.comb(v + o + 1, v + j) // (v + j + 1) for j in range(o + 1))
+    return max(0, sum((-1)**j * math.comb(m, j) * math.comb(v + o, v + j) * math.comb(v + o + 1, v + j) // (v + j + 1) for j in range(o + 1)))
     
 def PredictNullityHybrid(v, o, m, g):
-    return sum((-1)**j * math.comb(m + j - 1, j) * (math.comb(v + o, v + 2 * j) - math.comb(v - 1 + g, v + 2 * j)) for j in range(o//2 + 1))
+    return max(0, sum((-1)**j * math.comb(m + j - 1, j) * (math.comb(v + o, v + 2 * j) - math.comb(v - 1 + g, v + 2 * j)) for j in range(o//2 + 1)))

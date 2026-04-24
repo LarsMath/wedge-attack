@@ -1,0 +1,8 @@
+services:
+  sage:
+    image: sagemath/sagemath:10.6
+    volumes:
+      - ./sage:/home/sage/experiments
+    working_dir: /home/sage/experiments
+    stdin_open: true
+    tty: true
