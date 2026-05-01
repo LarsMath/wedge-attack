@@ -1,6 +1,6 @@
-load "./magma/estimators/parameters.m";
-load "./magma/estimators/complexity.m";
-load "./magma/estimators/odd_complexity.m";
+load "./estimators/parameters.m";
+load "./estimators/complexity.m";
+load "./estimators/odd_complexity.m";
 
 PrintComplexities(UOVParameters());
 PrintComplexities(MayoParameters());

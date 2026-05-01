@@ -1,5 +1,5 @@
-load "./magma/generate_problem.m";
-load "./magma/construct_M.m";
+load "./generate_problem.m";
+load "./construct_M.m";
 
 function FindOilSpace(Ps, v, o, m, F)
     n := v + o;
