@@ -1,6 +1,6 @@
 import math
-from construct_M import ConstructM
-from sage.all import PolynomialRing, Ideal, matrix, block_matrix, zero_matrix, identity_matrix
+
+load("./construct_M.sage")
 
 # ================================== Oil space recovery =======================
 

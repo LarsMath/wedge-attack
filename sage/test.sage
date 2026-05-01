@@ -1,7 +1,6 @@
-from rank_predictions import ComputeNullityEven, PredictNullityEven, ComputeNullityOdd, PredictNullityOdd, ComputeNullityHybrid, PredictNullityHybrid
-from wedge_attack import FindOilSpace
-from generate_problem import UOVInstance, TestSolution
-from sage.all import GF
+load("./generate_problem.sage")
+load("./rank_predictions.sage")
+load("./wedge_attack.sage")
 
 # ============================ Some rank tests ==========================
 

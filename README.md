@@ -38,8 +38,8 @@ solution := FindOilSpace(public, v, o, m, F);
 print "Found correct solution:", TestSolution(private, solution);
 ```
 ```python
-load("./wedge_attack.py")
-load("./generate_problem.py")
+load("./wedge_attack.sage")
+load("./generate_problem.sage")
 F = GF(16)
 v, o, m = 8, 6, 8
 
@@ -69,7 +69,7 @@ nullity := ComputeNullityEven(v, o, m);
 printf "actual:%o predicted:%o\n", nullity, PredictNullityEven(v, o, m);
 ```
 ```python
-load("./rank_predictions.py")
+load("./rank_predictions.sage")
 v, o, m = 9, 3, 5
 
 nullity = ComputeNullityEven(v, o, m)

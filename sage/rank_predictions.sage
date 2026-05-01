@@ -1,8 +1,8 @@
 import math
 import itertools
-from generate_problem import UOVInstance, UOVInstanceFixedZeroes
-from construct_M import ConstructM, ConstructMOdd, ConstructMGuess
-from sage.all import vector, GF
+
+load("./generate_problem.sage")
+load("./construct_M.sage")
 
 ############################################################
 # correctness tests
