@@ -7,7 +7,7 @@ Cost := function(v, o, q, g) return q^g * 3 * FqCost(q) * Density(v) * Columns(v
 
 function Complexity(v, o, m, q)
     BestComplexity := -1;
-    BestHypers := <0, 0>; // <v', o', g>
+    BestHypers := <0, 0, 0>; // <v', o', g>
 
     for o_reduced in [1..o] do
 
@@ -27,7 +27,7 @@ function Complexity(v, o, m, q)
                     cost := q^((v - v_reduced) * o_reduced) * Cost(v_reduced, o_reduced, q, g);
                     if BestComplexity eq -1 or cost lt BestComplexity then
                         BestComplexity := cost;
-                        BestHypers := <o_reduced, g>;
+                        BestHypers := <v_reduced, o_reduced, g>;
                     end if;
                 end if;
             end for;
@@ -37,15 +37,14 @@ function Complexity(v, o, m, q)
 end function;
 
 procedure PrintComplexities(parameters)
-    print "v\to\tm\tq\to'\tg\tcompl.\tSL\tscheme";
+    print "Scheme\tSL\t| v\to\tm\tq\t| v'\to'\tg\tcompl.";
     for p in parameters do
-        v, m, o, q, SL, name := Explode(p);
+        v, m, o, q, SL, scheme := Explode(p);
         cost, hypers := Complexity(v, o, m, q);
         if cost gt 0 then
-            printf "%o\t%o\t%o\t%o\t%o\t%o\t%o\t%o\t%o\n", v, o, m, q, hypers[1], hypers[2], Ceiling(Log(2, cost)), SL, name;
+            printf "%o\t%o\t| %o\t%o\t%o\t%o\t| %o\t%o\t%o\t%o\n", scheme, SL, v, o, m, q, hypers[1], hypers[2], hypers[3], Ceiling(Log(2, cost));
         else
-            printf "%o\t%o\t%o\t%o\t%o\t%o\t%o\t%o\t%o\n", v, o, m, q, "N/A", "N/A", "N/A", SL, name;
+            printf "%o\t%o\t| %o\t%o\t%o\t%o\t| %o\t%o\t%o\t%o\n", scheme, SL, v, o, m, q, "N/A", "N/A", "N/A", "N/A";
         end if;
     end for;
 end procedure;
-

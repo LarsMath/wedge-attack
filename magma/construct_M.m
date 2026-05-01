@@ -1,7 +1,10 @@
 function ConstructM(Qs, v, o, m, F)
     n := v + o;
+
+    // We use a dictionary to track the column indices of basis wedges
     idx := AssociativeArray(Subsets({1..n}, v)); i := 1; for s in Subsets({1..n}, v) do idx[s] := i; i +:= 1; end for;
 
+    // Prune if amount of rows greater than the amount of columns
     kept := {1..m * Binomial(n, v + 2)};
     if Binomial(n, v) lt #kept then
         kept := RandomSubset({1..m * Binomial(n, v + 2)}, Binomial(n, v));
@@ -40,12 +43,14 @@ function ConstructMOdd(Qs, v, o, m, F)
     entries := [];
     r := 0;
     for s1 in Subsets({1..n}, v+1) do
+        // Construct the Plucker relations
         for s2 in Subsets({1..n}, v-1) do
             if not s2 subset s1 then
                 r +:= 1;
                 entries cat:=[<GetIndex(idx[s1 diff {i}], idx[s2 join {i}]), r, Sign(s1, i) * Sign(s2, i)> : i in (s1 diff s2)];
             end if;
         end for;
+        // Construct the wedge relations, tensored with basis wedges
         for s2 in Subsets({1..n}, v+1) do
             for Q in Qs do
                 r +:= 1;
@@ -58,10 +63,11 @@ function ConstructMOdd(Qs, v, o, m, F)
     return SparseMatrix(F, Binomial(Binomial(n, v) + 1, 2), r, entries), idx;
 end function;
 
-function ConstructMGuess(Qs, v, o, m, g, F)
+function ConstructMHybrid(Qs, v, o, m, g, F)
     n := v + o;
     idx := AssociativeArray(Subsets({1..n}, v)); i := 0; 
     for s in Subsets({1..n}, v) do 
+        // Remove indices that are 0 by guessing
         if not s subset {2..v+g} then
             i +:= 1; idx[s] := i;
         end if;

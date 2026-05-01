@@ -4,6 +4,8 @@ function Upper(M)
     return Matrix(BaseRing(M), n, n, [[i lt j select M[i][j] + M[j][i] else (i eq j select M[i][j] else 0) : j in [1..n]] : i in [1..n]]);
 end function;
 
+// Constructs the secret oil space to have a certain shape
+// Then constructs the public maps according to this secret key
 function UOVInstanceFixedZeroes(v, o, m, g, F)
     n := v + o;
     

@@ -35,7 +35,7 @@ v := 13; o := 6; m := 13;
 
 public, private := UOVInstance(v, o, m, F);
 solution := FindOilSpace(public, v, o, m, F);
-assert TestSolution(private, solution);
+print "Found correct solution:", TestSolution(private, solution);
 ```
 ```python
 load("./sage/wedge_attack.sage")
@@ -44,7 +44,7 @@ v, o, m = 8, 6, 8
 
 public, private = UOVInstance(v, o, m, F)
 solution = FindOilSpace(public, v, o, m, F)
-assert TestSolution(private, solution)
+print("Found correct solution:", TestSolution(private, solution))
 ```
 Here, first a system is generated for `v, o, m, F` with public key and private key.
 Then the algorithm `FindOilSpace` is performed on the public key and finally the equality of the private key and found private key is tested.
@@ -64,8 +64,8 @@ Example usage:
 load "./magma/rank_predictions.m";
 v := 9; o := 3; m := 5;
 
-nullity := ComputeNullityEven(9, 3, 5);
-assert nullity eq PredictNullityEven(v, o, m)
+nullity := ComputeNullityEven(v, o, m);
+printf "actual:%o predicted:%o\n", nullity, PredictNullityEven(v, o, m);
 ```
 ```python
 load("./sage/rank_predictions.sage")
@@ -84,16 +84,11 @@ Example usage:
 ```cpp
 load "./magma/estimators/parameters.m";
 load "./magma/estimators/complexity.m";
+load "./magma/estimators/odd_complexity.m";
 
 PrintComplexities(UOVParameters());
 PrintComplexities(MayoParameters());
-```
-and
-```cpp
-load "./magma/estimators/parameters.m";
-load "./magma/estimators/odd_complexity.m";
-
-PrintComplexities(QRUOVParametersLifted());
+PrintComplexitiesOdd(QRUOVParametersLifted());
 ```
 
 ## Sage Installation

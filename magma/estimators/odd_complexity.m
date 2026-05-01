@@ -4,7 +4,7 @@ Density := function(v) return (v + 1)^2; end function;
 Columns := function(v, o) return Binomial(v + o, v) * Binomial(v + o + 1, v) / (v + 1); end function;
 Cost := function(v, o) return 3 * Density(v) * Columns(v, o)^2; end function;
 
-function Complexity(v, o, m)
+function ComplexityOdd(v, o, m)
     BestComplexity := -1;
     BestHypers := <0>; // <o'>
 
@@ -25,11 +25,11 @@ function Complexity(v, o, m)
 end function;
 
 
-procedure PrintComplexities(parameters)
+procedure PrintComplexitiesOdd(parameters)
     print "Scheme\tSL\t| v\to\tm\t| o'\tcomplexity";
     for p in parameters do
         v, m, o, _, SL, scheme := Explode(p);
-        cost, hypers := Complexity(v, o, m);
+        cost, hypers := ComplexityOdd(v, o, m);
         if cost gt 0 then
             printf "%o\t%o\t| %o\t%o\t%o\t| %o\t%o\n", scheme, SL, v, o, m, hypers[1], Ceiling(Log(2, cost));
         else
