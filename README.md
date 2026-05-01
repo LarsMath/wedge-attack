@@ -9,7 +9,7 @@ Note that the Sage code might run significantly slower.
 At the bottom of this README we provide a way to use Sage.
 Since the functionality of both the MAGMA part and Sage part are identical we will refer simply to the magma files in what follows.
 For both languages we provide examples on possible experiments.
-These code blocks can be used as input in either an interactive MAGMA session or in the Sage REPL.
+These code blocks can be used as input in either an interactive MAGMA session or in the Sage REPL in the corresponding directories.
 
 ## The codebase
 
@@ -29,7 +29,7 @@ In practice one would rerun the algorithm with a different projection/pruning, i
 
 Example usage:
 ```cpp
-load "./magma/wedge_attack.m";
+load "./wedge_attack.m";
 F := GF(256);
 v := 13; o := 6; m := 13;
 
@@ -38,7 +38,8 @@ solution := FindOilSpace(public, v, o, m, F);
 print "Found correct solution:", TestSolution(private, solution);
 ```
 ```python
-load("./sage/wedge_attack.sage")
+load("./wedge_attack.py")
+load("./generate_problem.py")
 F = GF(16)
 v, o, m = 8, 6, 8
 
@@ -61,18 +62,18 @@ Mathematically, generic systems (i.e. most random systems) attain the minimal nu
 
 Example usage:
 ```cpp
-load "./magma/rank_predictions.m";
+load "./rank_predictions.m";
 v := 9; o := 3; m := 5;
 
 nullity := ComputeNullityEven(v, o, m);
 printf "actual:%o predicted:%o\n", nullity, PredictNullityEven(v, o, m);
 ```
 ```python
-load("./sage/rank_predictions.sage")
+load("./rank_predictions.py")
 v, o, m = 9, 3, 5
 
 nullity = ComputeNullityEven(v, o, m)
-assert nullity == PredictNullityEven(v, o, m)
+print(f"actual: {nullity}, prediction: {PredictNullityEven(v, o, m)}")
 ```
 
 ### Complexity estimates
@@ -82,13 +83,17 @@ In the file `parameters.m` we list all parameters in the specifications of the r
 
 Example usage:
 ```cpp
-load "./magma/estimators/parameters.m";
-load "./magma/estimators/complexity.m";
-load "./magma/estimators/odd_complexity.m";
+load "./estimators/parameters.m";
+load "./estimators/complexity.m";
+load "./estimators/odd_complexity.m";
 
 PrintComplexities(UOVParameters());
 PrintComplexities(MayoParameters());
 PrintComplexitiesOdd(QRUOVParametersLifted());
+```
+The complexity computations do not need sage and can simply be started using
+```console
+python ./sage/estimators/complexity.py
 ```
 
 ## Sage Installation

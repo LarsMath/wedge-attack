@@ -1,24 +1,28 @@
 import math
-load("./generate_problem.sage")
-load("./construct_M.sage")
+from construct_M import ConstructM
+from sage.all import PolynomialRing, Ideal, matrix, block_matrix, zero_matrix, identity_matrix
 
 # ================================== Oil space recovery =======================
 
 def FindOilSpace(Ps, v, o, m, F):
-
     n = v + o
+
+    # Constructing polar forms
     Qs = [P + P.transpose() for P in Ps]
 
     # choose projection dimension
     o_proj = next(oi for oi in range(2, o+1) if sum((-1)**j * math.comb(m + j - 1, j) * math.comb(v + oi, v + 2*j) for j in range(oi//2 + 1)) <= 1)
     Qs_proj = [Q[:v+o_proj, :v+o_proj] for Q in Qs]
 
+    # Constructing the Macaulay matrix
     M, idx = ConstructM(Qs_proj, v, o_proj, m, F)
 
+    # Recovering the unique kernel element
     oil_kernel = M.right_kernel()
     assert oil_kernel.dimension() == 1
     V_vec = oil_kernel.basis()[0]
 
+    # Reconstructing the (projected) oil space from kernel element
     rows = []
     for i in range(o_proj):
         row = []

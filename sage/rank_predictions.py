@@ -1,12 +1,14 @@
 import math
 import itertools
-load("./generate_problem.sage")
-load("./construct_M.sage")
+from generate_problem import UOVInstance, UOVInstanceFixedZeroes
+from construct_M import ConstructM, ConstructMOdd, ConstructMGuess
+from sage.all import vector, GF
 
 ############################################################
 # correctness tests
 ############################################################
 
+# Reconstructing Λ^v V from the solution
 def TestCorrectnessEven(M, O, n, v, o, idx, F):
 
     sol = [F(0) for _ in range(math.comb(n, v))]
@@ -18,7 +20,7 @@ def TestCorrectnessEven(M, O, n, v, o, idx, F):
 
     assert M * solution == 0
 
-
+# Reconstructing Λ^v V ⊗ Λ^v V from the solution
 def TestCorrectnessOdd(M, O, n, v, o, idx, F):
 
     get_index = lambda idx1, idx2: min(idx1, idx2) + math.comb(max(idx1, idx2)+1, 2)
@@ -38,7 +40,7 @@ def TestCorrectnessOdd(M, O, n, v, o, idx, F):
 
     assert M * solution == 0
 
-
+# Reconstructing Λ^v V from the solution
 def TestCorrectnessGuess(M, O, n, v, o, idx, g, F):
 
     sol = [F(0) for _ in range(math.comb(n, v) - math.comb(v - 1 + g, v))]
