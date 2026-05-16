@@ -18,7 +18,7 @@ def ConstructM(qs, v, o, m, F):
     for r, (J, k) in enumerate(rows):
         entries.update({(r, idx[J[:x] + J[x+1:y] + J[y+1:]]) : qs[k][J[x]][J[y]] for x in range(v+2) for y in range(x+1, v+2)})
 
-    M = matrix(F, math.comb(n, v), math.comb(n, v), entries)
+    M = matrix(F, math.comb(n, v), math.comb(n, v), entries, sparse=True)
     return M, idx
 
 def ConstructMOdd(Qs, v, o, m, F):
@@ -65,7 +65,7 @@ def ConstructMOdd(Qs, v, o, m, F):
                 cols = set(t[0] for t in terms)
                 entries.update({(r, c): sum(t[1] for t in terms if t[0] == c) for c in cols})
 
-    M = matrix(F, r+1, math.comb(math.comb(n, v) + 1, 2), entries)
+    M = matrix(F, r+1, math.comb(math.comb(n, v) + 1, 2), entries, sparse=True)
     return M, idx
 
 
