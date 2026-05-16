@@ -18,7 +18,7 @@ def FindOilSpace(Ps, v, o, m, F):
     M, idx = ConstructM(Qs_proj, v, o_proj, m, F)
 
     # Recovering the unique kernel element
-    oil_kernel = M.right_kernel()
+    oil_kernel = M.dense_matrix().right_kernel()
     assert oil_kernel.dimension() == 1
     V_vec = oil_kernel.basis()[0]
 
